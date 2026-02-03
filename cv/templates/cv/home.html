@@ -8,119 +8,203 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Satisfy&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --soft-green: #d1ffbd; /* Verde claro pastel */
+            --magic-pink: #ffdaec; /* Rosa suave */
+            --deep-pink: #f48fb1;  /* Rosa para degradado */
+            --magic-purple: #e1bee7;
+        }
+
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Fondo con degradado profesional */
-        .hero-bg {
-            background: linear-gradient(135deg, #0d6efd 0%, #06357a 100%);
-            height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Círculos decorativos de fondo */
-        .hero-bg::before {
-            content: "";
+        /* Fondo Rosa con Degradado y Brillos */
+        .magic-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--magic-pink) 0%, var(--deep-pink) 100%);
+            z-index: -1;
+        }
+
+        /* Capa de Brillos (Sparkles) */
+        .sparkles {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.1);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle, white 1px, transparent 1px),
+                radial-gradient(circle, white 1.5px, transparent 1.5px);
+            background-size: 50px 50px, 100px 100px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.6;
+            animation: sparkleAnim 10s linear infinite;
+        }
+
+        @keyframes sparkleAnim {
+            from { background-position: 0 0, 25px 25px; }
+            to { background-position: 50px 50px, 75px 75px; }
+        }
+
+        /* Esferas de luz suaves */
+        .sphere {
+            position: absolute;
             border-radius: 50%;
-            top: -100px;
-            right: -100px;
+            filter: blur(50px);
+            opacity: 0.4;
+        }
+        .sphere-1 { width: 300px; height: 300px; background: white; top: -100px; right: -50px; }
+        .sphere-2 { width: 200px; height: 200px; background: var(--soft-green); bottom: -50px; left: -30px; }
+
+        /* Contenedor Principal Orgánico */
+        .main-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            border: 5px solid var(--soft-green);
+            border-radius: 120px 40px 150px 50px;
+            padding: 60px 40px;
+            width: 95%;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(244, 143, 177, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Foto con resplandor verde claro */
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
         }
 
         .profile-img-home {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             object-fit: cover;
             border-radius: 50%;
-            border: 8px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
+            border: 6px solid white;
+            box-shadow: 0 0 25px var(--soft-green);
         }
 
-        .profile-img-home:hover {
-            transform: scale(1.05);
+        /* Textos */
+        .name-title {
+            font-family: 'Satisfy', cursive;
+            color: #6a1b9a; /* Morado para contrastar con el rosa */
+            font-size: 3rem;
+            margin-bottom: 5px;
         }
 
-        .btn-entrance {
-            padding: 15px 40px;
+        .profession-title {
+            color: #4a4a4a;
+            font-weight: 700;
             font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 50px;
-            text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: 2px solid white;
+        }
+
+        .profession-title span {
+            color: #ad1457; /* Rosa fuerte profesional */
+        }
+
+        .welcome-text {
+            color: #5d4037;
+            font-weight: 500;
+            margin: 30px 0;
+            font-size: 0.95rem;
+        }
+
+        /* Botones Estilo Hada */
+        .btn-magic {
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 700;
             text-decoration: none;
+            transition: 0.3s ease;
             display: inline-flex;
             align-items: center;
+            margin: 10px;
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
         }
 
-        .btn-entrance:hover {
-            background-color: white;
-            color: #0d6efd !important;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .btn-cv {
+            background-color: var(--soft-green);
+            color: #2e7d32;
+            box-shadow: 0 4px 15px rgba(209, 255, 189, 0.6);
         }
 
-        .glass-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 800px;
-            width: 90%;
-            z-index: 10;
+        .btn-shop {
+            background-color: var(--magic-purple);
+            color: #6a1b9a;
+            box-shadow: 0 4px 15px rgba(225, 190, 231, 0.6);
+        }
+
+        .btn-magic:hover {
+            transform: scale(1.05) translateY(-3px);
+            filter: brightness(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .location-footer {
+            margin-top: 35px;
+            color: #880e4f;
+            font-weight: 600;
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 
-    <div class="hero-bg">
-        <div class="glass-container">
+    <div class="magic-bg">
+        <div class="sparkles"></div>
+        <div class="sphere sphere-1"></div>
+        <div class="sphere sphere-2"></div>
+    </div>
+
+    <div class="main-card">
+        <div class="profile-container">
             {% if perfil.foto %}
                 <img src="{{ perfil.foto.url }}" class="profile-img-home" alt="Foto Perfil">
             {% else %}
                 <img src="{% static 'img/user.png' %}" class="profile-img-home" alt="Usuario">
             {% endif %}
+        </div>
 
-            <h1 class="display-3 fw-bold mb-2 text-white">{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
-            <h4 class="text-light mb-4 fw-light">Tecnologías de la Información | Portafolio Profesional</h4>
-            
-            <p class="lead mb-5 px-md-5 text-white-50">
-                Bienvenidos a mi espacio profesional. Aquí podrán conocer mi trayectoria, 
-                habilidades académicas y proyectos desarrollados.
-            </p>
+        <h1 class="name-title">{{ perfil.nombres }} {{ perfil.apellidos }}</h1>
+        
+        <p class="profession-title">
+            Tecnologías de Información | <span>Portafolio Profesional</span>
+        </p>
 
-            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                <a href="{% url 'cv' %}" class="btn btn-outline-light btn-entrance">
-                    <i class="bi bi-file-earmark-person-fill me-2"></i> Ver Hoja de Vida
-                </a>
-                
-                {% if hay_productos %}
-                <a href="{% url 'tienda' %}" class="btn btn-light btn-entrance text-primary">
-                    <i class="bi bi-shop me-2"></i> Venta de Garage
-                </a>
-                {% endif %}
-            </div>
+        <p class="welcome-text px-lg-5">
+            Bienvenidos a mi espacio profesional. Aquí podrán conocer mi trayectoria, 
+            habilidades académicas y proyectos desarrollados.
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="{% url 'cv' %}" class="btn-magic btn-cv">
+                <i class="bi bi-stars me-2"></i> Ver Hoja de Vida
+            </a>
             
-            <div class="mt-5 pt-4 border-top border-white border-opacity-25">
-                <small class="text-white-50">Manta, Manabí, Ecuador - 2026</small>
-            </div>
+            {% if hay_productos %}
+            <a href="{% url 'tienda' %}" class="btn-magic btn-shop">
+                <i class="bi bi-magic me-2"></i> Venta de Garage
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="location-footer">
+            Manta, Manabí, Ecuador - 2026
         </div>
     </div>
 
