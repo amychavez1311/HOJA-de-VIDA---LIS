@@ -37,3 +37,4 @@ tzdata==2024.1
 urllib3==2.6.3
 virtualenv==20.34.0
 whitenoise==6.11.0
+psycopg[binary]==3.2.6
