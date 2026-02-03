@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
@@ -62,6 +63,16 @@ TIME_ZONE = 'America/Guayaquil'
 USE_I18N = True
 USE_TZ = True
 
+# Usar PostgreSQL en producción (Render), SQLite localmente
+if config('DATABASE_URL', default=None):
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # CAMBIO: Directorio donde se reunirán los archivos estáticos en Render
@@ -69,7 +80,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # CAMBIO: Directorio donde s
 # --- AZURE STORAGE CONFIG ---
 AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY')
-AZURE_CONTAINER = config('AZURE_CONTAINER', default='media')
+vi_CONTAINER = config('AZURE_CONTAINER', default='media')
 
 STORAGES = {
     "default": {
