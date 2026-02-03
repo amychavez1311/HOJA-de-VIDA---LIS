@@ -8,7 +8,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # CAMBIO: Permitir el host de Render y localhost
-ALLOWED_HOSTS = [config('RENDER_EXTERNAL_HOSTNAME', default='127.0.0.1'), 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['django-crud-auth3-jqhb.onrender.com', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,11 +51,12 @@ TEMPLATES = [
     },
 ]
 
+# Reemplaza los dos bloques anteriores de DATABASES con este:
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
         conn_max_age=600,
-        ssl_require=True,
+        ssl_require=True if not config('DEBUG', default=False, cast=bool) else False
     )
 }
 
