@@ -5,7 +5,9 @@ from .models import (
     Experiencia,
     Habilidad,
     Referencia,
-    VentaGarage
+    VentaGarage,
+    Certificado,
+    Proyecto
 )
 
 def home(request):
@@ -24,28 +26,28 @@ def home(request):
     
     return render(request, 'cv/home.html', context)
 
-
 def cv_view(request):
     """ Vista detallada de la Hoja de Vida """
     perfil = Perfil.objects.first()
 
     context = {
         'perfil': perfil,
-
-        # Listados generales
         'educaciones': Educacion.objects.all(),
         'experiencias': Experiencia.objects.all(),
         'habilidades': Habilidad.objects.all(),
         'referencias': Referencia.objects.all(),
-
-        # Relacionados al perfil
-        'certificados': perfil.certificados.all() if perfil else [],
+        
+        # --- Certificados: Usando el related_name='certificados' de tu modelo ---
+        'certificados': perfil.certificados.all() if perfil else [], 
+        
+        # --- Proyectos: Usando el related_name='proyectos' de tu modelo ---
         'proyectos': perfil.proyectos.all() if perfil else [],
 
-        # Para el botón pequeño de la tienda en el Navbar del CV
+        # --- Acceso a los productos de la Venta de Garage ---
+        'productos': VentaGarage.objects.filter(disponible=True), 
+        
         'hay_productos': VentaGarage.objects.filter(disponible=True).exists()
     }
-
     return render(request, 'cv/cv.html', context)
 
 
