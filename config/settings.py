@@ -80,7 +80,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # CAMBIO: Directorio donde s
 # --- AZURE STORAGE CONFIG ---
 AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY')
-vi_CONTAINER = config('AZURE_CONTAINER', default='media')
+AZURE_CONTAINER = config('AZURE_CONTAINER', default='media')
 
 STORAGES = {
     "default": {
